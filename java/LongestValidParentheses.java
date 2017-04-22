@@ -114,7 +114,6 @@ public class LongestValidParentheses {
             return max;
         }
 
-        private
     }
 
     public static void main( String[] args ) {
