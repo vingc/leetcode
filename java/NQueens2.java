@@ -3,47 +3,27 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by vingc on 2017/5/15.
- * ref: https://leetcode.com/problems/n-queens/#/description
- * num: 51
- The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
- Given an integer n, return all distinct solutions to the n-queens puzzle.
+ * Created by vingc on 2017/5/18.
+ * ref: https://leetcode.com/problems/n-queens-ii/#/description
+ * num: 52
+ Follow up for N-Queens problem.
 
- Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space respectively.
-
- For example,
- There exist two distinct solutions to the 4-queens puzzle:
-
- [
- [".Q..",  // Solution 1
- "...Q",
- "Q...",
- "..Q."],
-
- ["..Q.",  // Solution 2
- "Q...",
- "...Q",
- ".Q.."]
- ]
+ Now, instead outputting board configurations, return the total number of distinct solutions.
  */
-public class NQueens {
+public class NQueens2 {
     static class Solution {
-        private List<List<String>> totalList;
-
-        public List<List<String>> solveNQueens(int n) {
-
-            totalList = new ArrayList<>();
+        private int total;
+        public int totalNQueens(int n) {
 
             if( n == 0 ) {
-                return totalList;
+                return 0;
             }
 
             if( n == 1 ) {
-                List<String> subList = new ArrayList<>();
-                subList.add("Q");
-                totalList.add(subList);
-                return totalList;
+                return 1;
             }
+
+            total = 0;
 
             char[][] board = new char[n][n];
             for( int i = 0; i < n; i++ ) {
@@ -51,7 +31,7 @@ public class NQueens {
             }
 
             solve( board, 0 );
-            return totalList;
+            return total;
         }
 
 
@@ -62,12 +42,7 @@ public class NQueens {
                     board[row][i] = 'Q';
                     if( row == board.length - 1 ) {
                         //find the last position, save
-                        List<String> list = new ArrayList<>();
-                        for( int j = 0; j < board.length; j++ ) {
-                            String str = new String( board[j] );
-                            list.add( str );
-                        }
-                        totalList.add( list );
+                        total++;
 
                         board[row][i] = '.';
                         return;
@@ -130,11 +105,6 @@ public class NQueens {
 
     public static void main( String[] args ) {
         Solution sol = new Solution();
-        List<List<String>> list = sol.solveNQueens( 8 );
-        System.out.println(list.size());
-        for( List<String> sub: list ) {
-            System.out.println( sub.toString() );
-            System.out.println("-----------");
-        }
+        System.out.println(sol.totalNQueens(8));
     }
 }
